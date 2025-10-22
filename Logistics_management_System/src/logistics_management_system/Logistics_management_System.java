@@ -32,7 +32,7 @@ public class Logistics_management_System {
     public  static int cityCount = 0;
     public static int deliveryCount = 0;
     
-    private static DecimalFormat df = new DecimalFormat("#,##0.00");
+    public static DecimalFormat df = new DecimalFormat("#,##0.00");
     
     
     
@@ -331,17 +331,22 @@ public class Logistics_management_System {
             }
             System.out.println();
         }
-        
-        
-        
-        
-        
+            
     }    
         
         
     
  public static void displayVehicleInfo(){
-     
+    
+      System.out.println("\n=== VEHICLE INFORMATION ===");
+      System.out.println("Type\tCapacity(kg)\tRate/km(LKR)\tSpeed(km/h)\tFuel Eff(km/l)");
+      System.out.println("----------------------------------------------------------------");
+      
+      for (int i = 0; i < VEHICLE_TYPES.length; i++) {
+            System.out.printf("%-6s\t%-12d\t%-13d\t%-11d\t%-13d\n",
+                    VEHICLE_TYPES[i], CAPACITIES[i], RATES_PER_KM[i],
+                    AVG_SPEEDS[i], FUEL_EFFICIENCIES[i]);
+        }
      
  }
  
