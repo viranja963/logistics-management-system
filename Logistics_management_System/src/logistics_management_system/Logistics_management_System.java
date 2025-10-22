@@ -19,6 +19,21 @@ public class Logistics_management_System {
     public static final int MAX_DELIVERIES = 50;
     public static final double FUEL_PRICE = 310.0;
     
+    public static String[] cities = new String[MAX_CITIES];
+    public static int[][] distanceMatrix = new int[MAX_CITIES][MAX_CITIES];
+    public static Delivery[] deliveries = new Delivery[MAX_DELIVERIES];
+    
+    public static final String[] VEHICLE_TYPES = {"Van", "Truck", "Lorry"};
+    public static final int[] CAPACITIES = {1000, 5000, 10000};
+    public static final int[] RATES_PER_KM = {30, 40, 80};
+    public static final int[] AVG_SPEEDS = {60, 50, 45};
+    public static final int[] FUEL_EFFICIENCIES = {12, 6, 4};
+    
+    public  static int cityCount = 0;
+    public static int deliveryCount = 0;
+    
+    private static DecimalFormat df = new DecimalFormat("#,##0.00");
+    
     
     
     public static void main(String[] args) {
@@ -74,15 +89,169 @@ public class Logistics_management_System {
     }
      
     public static void cityManagement(){
-     
+      Scanner scanner = new Scanner(System.in);
         
+        while (true) {
+            System.out.println("\n=== CITY MANAGEMENT ===");
+            System.out.println("1. Add New City");
+            System.out.println("2. Rename City");
+            System.out.println("3. Remove City");
+            System.out.println("4. View All Cities");
+            System.out.println("5. Back to Main Menu");
+            System.out.print("Select an option: ");
+            
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+                case 1:
+                    addNewCity(scanner);
+                    break;
+                case 2:
+                    renameCity(scanner);
+                    break;
+                case 3:
+                    removeCity(scanner);
+                    break;
+                case 4:
+                    displayAllCities();
+                    break;
+                case 5:
+                    return;
+                default:
+                    System.out.println("Invalid option!");
+            }
+        }
         
         
         
     }
+    public static void addNewCity(Scanner sc){
+        
+         if (cityCount >= MAX_CITIES) {
+            System.out.println("Maximum number of cities reached!");
+            return;
+        }
+         
+         
+         System.out.print("Enter city name: ");
+        String cityName = sc.nextLine();
+        
+        if (cityName.isEmpty()) {
+            System.out.println("City name cannot be empty!");
+            return;
+        }
+        
+         for (int i = 0; i < cityCount; i++) {
+            if (cities[i].equalsIgnoreCase(cityName)) {
+                System.out.println("City already exists!");
+                return;
+            }
+        }
+        
+        cities[cityCount] = cityName;
+        cityCount++;
+        System.out.println("City '" + cityName + "' added successfully!");
+    }
     
-    
-    
+    public static void renameCity(Scanner sc){
+        
+        if (cityCount == 0) {
+            System.out.println("No cities available!");
+            return;
+        }
+        
+        displayAllCities();
+        System.out.print("Enter city number to rename: ");
+        int cityIndex = sc.nextInt() - 1;
+        sc.nextLine();
+        
+        if (cityIndex < 0 || cityIndex >= cityCount) {
+            System.out.println("Invalid city number!");
+            return;
+        }
+        
+        System.out.print("Enter new city name: ");
+        String newName = sc.nextLine().trim();
+        
+        if (newName.isEmpty()) {
+            System.out.println("City name cannot be empty!");
+            return;
+        }
+        
+         for (int i = 0; i < cityCount; i++) {
+            if (i != cityIndex && cities[i].equalsIgnoreCase(newName)) {
+                System.out.println("City name already exists!");
+                return;
+            }
+        }
+        
+         String oldName = cities[cityIndex];
+        cities[cityIndex] = newName;
+        System.out.println("City '" + oldName + "' renamed to '" + newName + "' successfully!");
+              
+        
+    }
+      public static void removeCity(Scanner sc){
+          
+       if (cityCount == 0) {
+            System.out.println("No cities available!");
+            return;
+        }
+       
+       displayAllCities();
+        System.out.print("Enter city number to remove: ");
+        int cityIndex = sc.nextInt() - 1;
+        
+        if (cityIndex < 0 || cityIndex >= cityCount) {
+            System.out.println("Invalid city number!");
+            return;
+        }
+        
+        String removedCity = cities[cityIndex];
+        
+        for (int i = cityIndex; i < cityCount - 1; i++) {
+            cities[i] = cities[i + 1];
+        }
+        cities[cityCount - 1] = null;
+        cityCount--;
+        
+        
+        updateDistanceMatrixAfterRemoval(cityIndex);
+        
+        System.out.println("City '" + removedCity + "' removed successfully!");
+          
+        }
+      
+       public static void updateDistanceMatrixAfterRemoval(int removedIndex) {
+        
+        for (int i = removedIndex; i < cityCount; i++) {
+            for (int j = 0; j < MAX_CITIES; j++) {
+                distanceMatrix[i][j] = distanceMatrix[i + 1][j];
+            }
+        }
+        
+        
+        for (int i = 0; i < cityCount; i++) {
+            for (int j = removedIndex; j < cityCount; j++) {
+                distanceMatrix[i][j] = distanceMatrix[i][j + 1];
+            }
+        }
+    }
+       
+        public static void displayAllCities() {
+        if (cityCount == 0) {
+            System.out.println("No cities available!");
+            return;
+        }
+        
+        System.out.println("\n=== ALL CITIES ===");
+        for (int i = 0; i < cityCount; i++) {
+            System.out.println((i + 1) + ". " + cities[i]);
+        }
+    }
+        
+        
+   
     public static void distanceManagement(){
         
         
@@ -126,3 +295,5 @@ public class Logistics_management_System {
      
  }
  }
+
+
