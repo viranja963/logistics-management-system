@@ -352,7 +352,12 @@ public class Logistics_management_System {
  
  
  public static void handleDeliveryRequest(){
-     
+      
+        if (cityCount < 2) {
+            System.out.println("Need at least 2 cities to process deliveries!");
+            return;
+        }
+        
      
      
  }
