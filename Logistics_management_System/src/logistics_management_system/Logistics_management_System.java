@@ -254,12 +254,92 @@ public class Logistics_management_System {
    
     public static void distanceManagement(){
         
+    Scanner sc = new Scanner(System.in);
         
-        
-       
-        
-        
+        while (true) {
+            System.out.println("\n=== DISTANCE MANAGEMENT ===");
+            System.out.println("1. Add/Edit Distance");
+            System.out.println("2. View Distance Table");
+            System.out.println("3. Back to Main Menu");
+            System.out.print("Select an option: ");
+                
+         int choice = sc.nextInt();
+            
+            switch (choice) {
+                case 1:
+                    addEditDistance(sc);
+                    break;
+                case 2:
+                    displayDistanceTable();
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.println("Invalid option!");
+            }
+        }       
 }
+    public static void addEditDistance(Scanner sc){
+        if (cityCount < 2) {
+            System.out.println("Need at least 2 cities to manage distances!");
+            return;
+        }
+        displayAllCities();
+        System.out.print("Enter source city number: ");
+        int source = sc.nextInt() - 1;
+        System.out.print("Enter destination city number: ");
+        int dest = sc.nextInt() - 1;
+        
+        if (source < 0 || source >= cityCount || dest < 0 || dest >= cityCount) {
+            System.out.println("Invalid city numbers!");
+            return;
+        }
+        
+        if (source == dest) {
+            System.out.println("Distance from city to itself is always 0!");
+            return;
+        }
+         System.out.print("Enter distance between " + cities[source] + " and " + cities[dest] + " (km): ");
+        int dist = sc.nextInt();
+        
+        if (dist < 0) {
+            System.out.println("Distance cannot be negative!");
+            return;
+        }
+        
+        distanceMatrix[source][dest] = dist;
+        distanceMatrix[dest][source] = dist; // Make symmetrical
+        System.out.println("Distance updated successfully!");
+    }
+        
+    public static void displayDistanceTable(){
+        if (cityCount == 0) {
+            System.out.println("No cities available!");
+            return;
+        }
+        System.out.println("\n=== DISTANCE TABLE (km) ===");
+        System.out.print("City\t\t");
+        for (int i = 0; i < cityCount; i++) {
+            System.out.print(String.format("%-12s", cities[i].substring(0, Math.min(10, cities[i].length()))));
+        }
+        System.out.println();
+        
+         for (int i = 0; i < cityCount; i++) {
+            System.out.print(String.format("%-12s", cities[i].substring(0, Math.min(10, cities[i].length()))));
+            for (int j = 0; j < cityCount; j++) {
+                System.out.print(String.format("%-12d", distanceMatrix[i][j]));
+            }
+            System.out.println();
+        }
+        
+        
+        
+        
+        
+    }    
+        
+        
+    
  public static void displayVehicleInfo(){
      
      
