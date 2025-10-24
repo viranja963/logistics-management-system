@@ -369,6 +369,15 @@ public class Logistics_management_System {
         System.out.print("Enter destination city number: ");
         int dest = sc.nextInt() - 1;
      
+         if (source < 0 || source >= cityCount || dest < 0 || dest >= cityCount) {
+            System.out.println("Invalid city numbers!");
+            return;
+        }
+          if (source == dest) {
+            System.out.println("Distance from city to itself is always 0!");
+            return;
+        }
+          
  }
  
  
