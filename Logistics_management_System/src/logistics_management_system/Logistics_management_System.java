@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package logistics_management_system;
-
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 /**
@@ -40,9 +40,31 @@ public class Logistics_management_System {
         
         displayMainMenu();
         
-    }
+}
+     static class Delivery {
+        int sourceCity;
+        int destCity;
+        double weight;
+        int vehicleType;
+        double distance;
+        double baseCost;
+        double fuelUsed;
+        double fuelCost;
+        double operationalCost;
+        double profit;
+        double customerCharge;
+        double estimatedTime;
+        String route;
     
-    
+        
+         public Delivery(int source, int dest, double weight, int vehicle, double distance) {
+            this.sourceCity = source;
+            this.destCity = dest;
+            this.weight = weight;
+            this.vehicleType = vehicle;
+            this.distance = distance;
+        }
+     }
      public static void displayMainMenu() {
         Scanner scanner = new Scanner(System.in);
         
@@ -69,9 +91,11 @@ public class Logistics_management_System {
                 case 3:
                     displayVehicleInfo();
                     break;
-                case 4:
+                    
+                case 4:                    
                     handleDeliveryRequest();
                     break;
+
                 case 5:
                     findLeastCostRoute();
                     break;
@@ -267,7 +291,7 @@ public class Logistics_management_System {
                     addEditDistance(sc);
                     break;
                 case 2:
-                    displayDistanceTable();
+                    displayDistanceTable(sc);
                     break;
                 case 3:
                     return;
@@ -277,6 +301,9 @@ public class Logistics_management_System {
         }       
 }
     public static void addEditDistance(Scanner sc){
+        System.out.println("enter city count: ");
+        cityCount=sc.nextInt();
+        
         if (cityCount < 2) {
             System.out.println("Need at least 2 cities to manage distances!");
             return;
@@ -305,11 +332,14 @@ public class Logistics_management_System {
         }
         
         distanceMatrix[source][dest] = dist;
-        distanceMatrix[dest][source] = dist; // Make symmetrical
+        distanceMatrix[dest][source] = dist; 
         System.out.println("Distance updated successfully!");
     }
         
-    public static void displayDistanceTable(){
+    public static void displayDistanceTable(Scanner sc){
+       
+        System.out.println("enter city count:");
+        cityCount=sc.nextInt();
         if (cityCount == 0) {
             System.out.println("No cities available!");
             return;
@@ -349,16 +379,22 @@ public class Logistics_management_System {
  
  
  public static void handleDeliveryRequest(){
-      
+     Scanner sc=new Scanner(System.in);
+      System.out.println("Enter city count:");
+      cityCount=sc.nextInt();
         if (cityCount < 2) {
             System.out.println("Need at least 2 cities to process deliveries!");
             return;
         }
+        
+         
+         System.out.println("Enter delivery count:");
+         deliveryCount=sc.nextInt();
         if (deliveryCount >= MAX_DELIVERIES) {
             System.out.println("Maximum delivery limit reached!");
             return;
         }
-     Scanner sc = new Scanner(System.in);
+     
         
         displayAllCities();
         System.out.print("Enter source city number: ");
@@ -404,19 +440,21 @@ public class Logistics_management_System {
  
  
  public static void findLeastCostRoute(){
-   
+      Scanner sc = new Scanner(System.in);
+      System.out.println("Enter city count:");
+      cityCount=sc.nextInt();
       if (cityCount < 2) {
             System.out.println("Need at least 2 cities!");
             return;
         }
         
-        Scanner scanner = new Scanner(System.in);
+        
         
         displayAllCities();
         System.out.print("Enter source city number: ");
-        int source = scanner.nextInt() - 1;
+        int source = sc.nextInt() - 1;
         System.out.print("Enter destination city number: ");
-        int dest = scanner.nextInt() - 1;
+        int dest = sc.nextInt() - 1;
      
          if (source < 0 || source >= cityCount || dest < 0 || dest >= cityCount) {
             System.out.println("Invalid city numbers!");
