@@ -78,10 +78,7 @@ public class Logistics_management_System {
                 case 6:
                     showPerformanceReports();
                     break;
-                case 7:
-                    saveDataToFiles();
-                    System.out.println("Thank you for using Logistics Management System!");
-                    return;
+               
                 default:
                     System.out.println("Invalid option! Please try again.");
             }
@@ -466,28 +463,56 @@ public class Logistics_management_System {
             System.out.println("Distance: " + minDistance + " km");
             System.out.println("Route: " + bestRoute);
         }
-       
-       
+              
        }
-     public static double findDirectDistance(int source, int dest) {
+       
+         public static double findDirectDistance(int source, int dest) {
         return distanceMatrix[source][dest];
     }
-     
-      
- 
- 
+         
+         
+         
+   
  public static void showPerformanceReports(){
+     if (deliveryCount == 0) {
+            System.out.println("No deliveries completed yet!");
+            return;
+        }
+        
+        double totalDistance = 0;
+        double totalTime = 0;
+        double totalRevenue = 0;
+        double totalProfit = 0;
+        double longestRoute = 0;
+        double shortestRoute = Double.MAX_VALUE;    
      
+     for (int i = 0; i < deliveryCount; i++) {
+            Delivery delivery = deliveries[i];
+            totalDistance += delivery.distance;
+            totalTime += delivery.estimatedTime;
+            totalRevenue += delivery.customerCharge;
+            totalProfit += delivery.profit;
+            
+            if (delivery.distance > longestRoute) {
+                longestRoute = delivery.distance;
+            }
+            if (delivery.distance < shortestRoute) {
+                shortestRoute = delivery.distance;
+            }
+        }
+     System.out.println("\n=== PERFORMANCE REPORTS ===");
+        System.out.println("Total Deliveries Completed: " + deliveryCount);
+        System.out.println("Total Distance Covered: " + String.format("%.2f", totalDistance) + " km");
+        System.out.println("Average Delivery Time: " + String.format("%.2f", totalTime / deliveryCount) + " hours");
+        System.out.println("Total Revenue: " + df.format(totalRevenue) + " LKR");
+        System.out.println("Total Profit: " + df.format(totalProfit) + " LKR");
+        System.out.println("Longest Route: " + longestRoute + " km");
+        System.out.println("Shortest Route: " + shortestRoute + " km");
+    }
      
-     
- }
  
- public static void saveDataToFiles(){
-     
-     
-     
-     
- }
+ 
+ 
  }
 
 
