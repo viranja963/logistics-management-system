@@ -357,7 +357,10 @@ public class Logistics_management_System {
             System.out.println("Need at least 2 cities to process deliveries!");
             return;
         }
-        
+        if (deliveryCount >= MAX_DELIVERIES) {
+            System.out.println("Maximum delivery limit reached!");
+            return;
+        }
      
      
  }
