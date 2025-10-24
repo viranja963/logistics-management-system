@@ -374,21 +374,11 @@ public class Logistics_management_System {
             return;
         }
           if (source == dest) {
-            System.out.println("Distance from city to itself is always 0!");
+            System.out.println("Source and destination cannot be the same!");
             return;
         }
           
-           System.out.print("Enter distance between " + cities[source] + " and " + cities[dest] + " (km): ");
-        int dist = sc.nextInt();
-        
-        if (dist < 0) {
-            System.out.println("Distance cannot be negative!");
-            return;
-        }
-        
-        distanceMatrix[source][dest] = dist;
-        distanceMatrix[dest][source] = dist; 
-        System.out.println("Distance updated successfully!");
+          
     
               
  }
