@@ -437,11 +437,21 @@ public class Logistics_management_System {
         System.out.println("\nDirect route from " + cities[source] + " to " + cities[dest]);
         System.out.println("Distance: " + directDistance + " km");
         System.out.println("Route: " + cities[source] + " → " + cities[dest]);
-        
+       
+         if (cityCount >= 3) {
+            findRouteWithIntermediateCities(source, dest);
+        }
          
  }
+ 
+       public static void findRouteWithIntermediateCities(int source, int dest) {
+        double minDistance = findDirectDistance(source, dest);
+        String bestRoute = cities[source] + " → " + cities[dest];
+        boolean foundBetter = false;
          
-         
+     
+        
+       }
      public static double findDirectDistance(int source, int dest) {
         return distanceMatrix[source][dest];
     }
