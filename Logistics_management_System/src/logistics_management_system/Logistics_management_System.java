@@ -385,7 +385,17 @@ public class Logistics_management_System {
             System.out.println("Invalid vehicle type!");
             return;
         } 
-          
+        System.out.print("Enter package weight (kg): ");
+        double weight = sc.nextDouble();
+        
+        if (weight <= 0) {
+            System.out.println("Weight must be positive!");
+            return;
+        }
+         if (weight > CAPACITIES[vehicleType]) {
+            System.out.println("Weight exceeds vehicle capacity! Maximum: " + CAPACITIES[vehicleType] + " kg");
+            return;
+        } 
     
               
  }
