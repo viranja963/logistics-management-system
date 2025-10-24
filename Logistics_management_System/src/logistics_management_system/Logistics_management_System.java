@@ -377,7 +377,14 @@ public class Logistics_management_System {
             System.out.println("Source and destination cannot be the same!");
             return;
         }
-          
+          displayVehicleInfo();
+        System.out.print("Select vehicle type (1=Van, 2=Truck, 3=Lorry): ");
+        int vehicleType = sc.nextInt() - 1;
+        
+        if (vehicleType < 0 || vehicleType >= VEHICLE_TYPES.length) {
+            System.out.println("Invalid vehicle type!");
+            return;
+        } 
           
     
               
