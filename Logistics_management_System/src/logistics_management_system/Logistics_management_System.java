@@ -448,9 +448,26 @@ public class Logistics_management_System {
         double minDistance = findDirectDistance(source, dest);
         String bestRoute = cities[source] + " → " + cities[dest];
         boolean foundBetter = false;
-         
+        
+        for (int i = 0; i < cityCount; i++) {
+            if (i != source && i != dest) {
+                double distViaI = findDirectDistance(source, i) + findDirectDistance(i, dest);
+                if (distViaI < minDistance && distViaI > 0) {
+                    minDistance = distViaI;
+                    bestRoute = cities[source] + " → " + cities[i] + " → " + cities[dest];
+                    foundBetter = true;
+                }
+            }
      
         
+       }
+         if (foundBetter) {
+            System.out.println("\nBetter route found!");
+            System.out.println("Distance: " + minDistance + " km");
+            System.out.println("Route: " + bestRoute);
+        }
+       
+       
        }
      public static double findDirectDistance(int source, int dest) {
         return distanceMatrix[source][dest];
