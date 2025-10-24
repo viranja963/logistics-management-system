@@ -361,7 +361,13 @@ public class Logistics_management_System {
             System.out.println("Maximum delivery limit reached!");
             return;
         }
-     
+     Scanner sc = new Scanner(System.in);
+        
+        displayAllCities();
+        System.out.print("Enter source city number: ");
+        int source = sc.nextInt() - 1;
+        System.out.print("Enter destination city number: ");
+        int dest = sc.nextInt() - 1;
      
  }
  
