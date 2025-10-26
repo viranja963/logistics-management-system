@@ -337,13 +337,13 @@ public class Logistics_management_System {
     }
         
     public static void displayDistanceTable(Scanner sc){
-       
-        System.out.println("enter city count:");
-        cityCount=sc.nextInt();
+        
         if (cityCount == 0) {
             System.out.println("No cities available!");
             return;
         }
+       
+        
         System.out.println("\n=== DISTANCE TABLE (km) ===");
         System.out.print("City\t\t");
         for (int i = 0; i < cityCount; i++) {
